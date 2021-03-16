@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - develop
+      - fix-vulberability-1
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
