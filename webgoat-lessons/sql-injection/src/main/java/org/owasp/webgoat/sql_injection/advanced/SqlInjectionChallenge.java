@@ -49,7 +49,6 @@ import javax.persistence.EntityManager;
 public class SqlInjectionChallenge extends AssignmentEndpoint {
 
     private final DataSource dataSource;
-    private EntityManager entityManager;
 
     public SqlInjectionChallenge(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -62,13 +61,10 @@ public class SqlInjectionChallenge extends AssignmentEndpoint {
         AttackResult attackResult = checkArguments(username_reg, email_reg, password_reg);
 
         if (attackResult == null) {
-
             try (Connection connection = dataSource.getConnection()) {
-                Query checkUserQuery = entityManager.createQuery("SELECT userid from sql_challenge_users where userid = :user");
-                //String checkUserQuery = "select userid from sql_challenge_users where userid = '" + username_reg + "'";
-                checkUserQuery.setParameter("user",username_reg);
+                String checkUserQuery = "select userid from sql_challenge_users where userid = '" + username_reg + "'";
                 Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(String.valueOf(checkUserQuery));
+                ResultSet resultSet = statement.executeQuery(checkUserQuery);
 
                 if (resultSet.next()) {
                     if (username_reg.contains("tom'")) {
@@ -101,4 +97,3 @@ public class SqlInjectionChallenge extends AssignmentEndpoint {
         return null;
     }
 }
-
