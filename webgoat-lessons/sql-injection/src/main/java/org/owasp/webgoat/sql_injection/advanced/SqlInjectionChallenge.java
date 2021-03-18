@@ -35,10 +35,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.sql.DataSource;
 import java.sql.*;
 
-//Nuestros imports
-import javax.persistence.Query;
-import javax.persistence.EntityManager;
-
 /**
  * @author nbaars
  * @since 4/8/17.
@@ -55,7 +51,6 @@ public class SqlInjectionChallenge extends AssignmentEndpoint {
     }
 
     @PutMapping("/SqlInjectionAdvanced/challenge")
-    //assignment path is bounded to class so we use different http method :-)
     @ResponseBody
     public AttackResult registerNewUser(@RequestParam String username_reg, @RequestParam String email_reg, @RequestParam String password_reg) throws Exception {
         AttackResult attackResult = checkArguments(username_reg, email_reg, password_reg);
